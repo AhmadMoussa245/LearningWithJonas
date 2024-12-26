@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import xss from 'xss-clean';
 import express from 'express';
+import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import AppError from './utils/appError.js';
 import tourRouter from './routes/tourRoutes.js';
@@ -50,6 +51,8 @@ app.use(hpp({
         "price"
     ]
 }));
+
+app.use(compression());
 
 // Serving static files
 app.use(express.static(`./public`));

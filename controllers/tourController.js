@@ -98,8 +98,7 @@ const getTourWithin=catchAsync(async(req,res,next)=>{
     
     if(!lng || !lat){
         next(new AppError(
-            'please provide latitude and longitud',
-            400
+            'please provide latitude and longitud',400
         ));
     };
     const tours=await Tour.find({
@@ -130,8 +129,7 @@ const getDistances=catchAsync(async(req,res,next)=>{
 
     if(!lng || !lat){
         next(new AppError(
-            'please provide latitude and longitud',
-            400
+            'please provide latitude and longitud',400
         ));
     };
 

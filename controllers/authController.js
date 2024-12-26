@@ -120,8 +120,8 @@ const protect=catchAsync(async(req,res,next)=>{
     const currentUser=await User.findById(decoded.id);
     if(!currentUser){
         return next(new AppError(
-            'user of this token no longer exist',401)
-        );
+            'user of this token no longer exist',401
+        ));
     };
     
     // check if user changed password after

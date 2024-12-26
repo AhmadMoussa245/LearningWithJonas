@@ -8,7 +8,7 @@ const handleCastErrorDB=err=>{
 
 const handle11000ErrorDB=err=>{
     const value=err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-    console.log(value);
+    // console.log(value);
     const message = `Dublicated value: ${value}. Please Change it`;
     return new AppError(message,400);
 };
