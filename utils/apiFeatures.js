@@ -16,7 +16,7 @@ class APIFeatures{
         
         let queryStr=JSON.stringify(queryObj);
         queryStr=queryStr.replace(
-            /\b{lt|gt|lte|lt}\b/g,
+            /\b{lte|lt|gt|gte}\b/g,
             match=> `$${match}`
         )
 

@@ -15,8 +15,26 @@ const signToken=id=>{
 };
 
 const createSendToken=(user,statusCode,res)=>{
-    const token=signToken(user._id)
-        
+    const token=signToken(user._id);
+    const cookieOptions={
+        expires:new Date(
+            Date.now()+
+            process.env.JWT_COOKIE_EXPIRES_IN*
+            24*60*60*1000  
+        ),
+        // https : true only in production
+        secure:false,
+        // important:don't let cookie access or
+        //   modified from browser in any way
+        httpOnly:true
+    };
+    if(process.env.NODE_ENV==='production'){
+        cookieOptions.secure=true;
+    };
+    res.cookie('jwt',token,cookieOptions);
+    // remove password from out put
+    // dont do user.save() and it wont be saved
+    user.password=undefined;
     res.status(statusCode).json({
         status:'success',
         token,
@@ -216,10 +234,12 @@ const updatePassword=catchAsync(async(req,res,next)=>{
             'wrong password',401
         ))
     }
+
     
     // 3) If so, update password
-    user.password=req.body.Password;
+    user.password=req.body.password;
     user.passwordConfirm=req.body.passwordConfirm;
+
     await user.save();
     // User.findByIdAndUpdate will NOT work as intended
     
